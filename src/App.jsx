@@ -1,7 +1,7 @@
 // src/App.jsx
 
 import { useState } from "react";
-import ScrollTop from "./components/scrollTop";
+import ScrollTop from "./components/ScrollTop";
 import SplashLoader from "./components/ShimmerLoading";
 import HomePage from "./pages/HomePage";
 

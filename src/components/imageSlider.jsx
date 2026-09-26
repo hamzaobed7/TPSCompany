@@ -276,7 +276,7 @@ export default function ImageSlider() {
             order: { xs: 1, md: 2 },
             position: "relative",
             width: { xs: "90%", sm: 420, md: 720 },
-            height:'500px',
+            height: "500px",
             flexShrink: 0,
           }}
         >
@@ -337,7 +337,7 @@ export default function ImageSlider() {
               bottom: -14,
               right: 20,
               left: 60,
-              height:'30px',
+              height: "30px",
               backgroundColor: "var(--color-petroleum-deep)",
               border: "1px solid rgba(245,158,11,0.25)",
               borderRadius: "10px",
