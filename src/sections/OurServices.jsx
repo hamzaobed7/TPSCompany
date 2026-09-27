@@ -39,7 +39,7 @@ export default function OurServices() {
         Our Services
       </Typography>
 
-      <Grid container spacing={2} sx={{margin:'10px auto'}}    >
+      <Grid container spacing={2} sx={{margin:'10px auto',position:"relative",left:"20px"}}    >
         <Grid item xs={12} sm={6} md={6}>
           <Box
             component="img"
@@ -92,6 +92,8 @@ export default function OurServices() {
           justifyContent: "center",
           alignItems: "center",
           width: "100%",
+          position:'relative',
+          left:{xs:"20px",md:'0'}
         }}
       >
         {service.map((e, index) => {

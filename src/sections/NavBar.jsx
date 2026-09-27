@@ -126,21 +126,19 @@ export default function Navbar() {
         position="fixed"
         elevation={scrolled ? 8 : 0}
         sx={{
-          // : scrolled ? "rgba(11, 15, 25, 0.95)" : "transparent",
-          // backdropFilter: scrolled ? "blur(10px)" : "none",
-          backgroundColor:"var(--color-petroleum-deep)",
-          borderBottom: scrolled ? "1px solid rgba(245, 158, 11, 0.15)" : "1px solid transparent",
+        
+          backgroundColor: "var(--color-petroleum-deep)",
           transition: "all 0.3s ease-in-out",
-          height: "100px",
-          width:{xs:'90%',md:"60%"},
-          margin:"20px auto",
-          position:"fixed",
-          right:{xs:"30px",md:"400px"},
-          borderRadius:"20px"
+          height: "80px",
+          width: { xs: "95%", md: "60%" },
+          position: "fixed",
+          margin:'10px',
+          left:{md:"20%",},
+          borderRadius: "10px",
         }}
       >
-        <Container maxWidth="xl" sx={{marginTop:'10px'}}   >
-          <Toolbar disableGutters sx={{ justifyContent: "space-between", py: 1, alignItems:"center" }}>
+        <Container maxWidth="xl" >
+          <Toolbar disableGutters sx={{ justifyContent: "space-between", py: 1, alignItems: "center" }}>
             <Box
               component="a"
               href="#"
@@ -217,8 +215,8 @@ export default function Navbar() {
               <MenuIcon sx={{ fontSize: "2rem" }} />
             </IconButton>
             <IconButton>
-              <Tooltip title="languages" >
-                <LanguageIcon sx={{color:'white'}} />
+              <Tooltip title="languages">
+                <LanguageIcon sx={{ color: "white" }} />
               </Tooltip>
             </IconButton>
           </Toolbar>

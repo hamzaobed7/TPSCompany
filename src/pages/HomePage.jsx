@@ -4,7 +4,7 @@ import OurServices from "../sections/OurServices";
 import AboutUs from "../sections/AboutUs";
 import WhyChooseUs from "../sections/WhyChooseUs";
 import ContactUs from "../sections/ContactUs";
-import Footer from './../sections/Footer';
+import Footer from "./../sections/Footer";
 import Navbar from "../sections/NavBar";
 
 export default function HomePage() {
@@ -18,14 +18,14 @@ export default function HomePage() {
       {/*section five => Contact us */}
       {/* footer */}
 
-      <Stack spacing={3} direction={"column"} sx={{ height: "100vh"}}>
-        <Navbar/>
+      <Stack spacing={3} direction={"column"} sx={{ height: "100vh" }}>
+        <Navbar />
         <Hero />
         <OurServices />
         <AboutUs />
         <WhyChooseUs />
         <ContactUs />
-        <Footer/>
+        <Footer />
       </Stack>
     </>
   );

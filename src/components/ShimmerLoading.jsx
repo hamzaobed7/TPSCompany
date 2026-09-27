@@ -2,66 +2,49 @@ import { useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import logo from "../images/logo.png";
-
-const LINE_COUNT = 14; // عدد الخطوط المتدفقة
-
+import { motion } from "framer-motion";
+import { BackgroundLines } from "../HelperFunction/BackGround";
+const LINE_COUNT = 14;
 export default function SplashLoader({ logoSrc = logo, brandName = "TPS STATIONS", tagline = "FUEL • SERVICE • TRUST", holdMs = 2000, exitMs = 900, onFinish }) {
-  const [phase, setPhase] = useState("loading"); // loading → exiting → done
+  const [phase, setPhase] = useState("loading");
 
   useEffect(() => {
     const t1 = setTimeout(() => setPhase("exiting"), holdMs);
-    const t2 = setTimeout(() => {
-      setPhase("done");
-      onFinish?.();
-    }, holdMs + exitMs);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-    };
-  }, [holdMs, exitMs, onFinish]);
+    return () => clearTimeout(t1);
+  }, [holdMs]);
 
   if (phase === "done") return null;
   const exiting = phase === "exiting";
+  const handleExitComplete = () => {
+    setPhase("done");
+    onFinish?.();
+  };
 
   return (
-    <Box
-      sx={{
+    <motion.div
+      variants={{
+        loading: { y: 0, opacity: 1 },
+        exiting: {
+          y: "-100%",
+          opacity: 0,
+          transition: { duration: exitMs / 1000, ease: "easeInOut" },
+        },
+      }}
+      initial="loading"
+      animate={exiting ? "exiting" : "loading"}
+      onAnimationComplete={(variant) => {
+        if (variant === "exiting") handleExitComplete();
+      }}
+      style={{
         position: "fixed",
         inset: 0,
-        zIndex: 9999,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
         overflow: "hidden",
         background: "var(--color-petroleum-deep)",
-        transition: `opacity ${exitMs}ms ease`,
-        opacity: exiting ? 0 : 1,
-        
-        "@keyframes lineFlow": {
-          "0%": {
-            transform: "rotate(var(--rot)) translateX(120vw) scaleX(0.3)",
-            opacity: 0,
-          },
-          "12%": { opacity: 1 },
-          "75%": { opacity: 1 },
-          "100%": {
-            transform: "rotate(var(--rot)) translateX(0px) scaleX(1)",
-            opacity: 0,
-          },
-        },
-        "@keyframes logoPulse": {
-          "0%, 100%": {
-            boxShadow: "0 0 35px rgba(245,158,11,0.3)",
-            filter: "drop-shadow(0 0 12px rgba(245,158,11,0.35))",
-          },
-          "50%": {
-            boxShadow: "0 0 70px rgba(245,158,11,0.55)",
-            filter: "drop-shadow(0 0 22px rgba(245,158,11,0.6))",
-          },
-        },
       }}
     >
-      {/* الخطوط المتدفقة من كل الاتجاهات نحو المركز */}
       <Box
         sx={{
           position: "absolute",
@@ -72,62 +55,97 @@ export default function SplashLoader({ logoSrc = logo, brandName = "TPS STATIONS
         }}
       >
         {Array.from({ length: LINE_COUNT }).map((_, i) => {
-          const angle = (360 / LINE_COUNT) * i + 12; // ميل بسيط حتى ما تكون متزامنة
+          const angle = (360 / LINE_COUNT) * i + 12;
+
           return (
-            <Box
+            <motion.div
               key={i}
-              sx={{
+              style={{
                 position: "absolute",
-                width: `${110 + (i % 4) * 45}px`, // أطوال متفاوتة للواقعية
-                height: i % 3 === 0 ? 3 : 2,
+                width: `${210 + (i % 4) * 45}px`,
+                height: i % 4 === 0 ? 4 : 3,
                 borderRadius: 3,
-                // التدرج مشرق عند الطرف الداخلي (جهة المركز)
                 background: "linear-gradient(90deg, rgba(245,158,11,0.95), rgba(245,158,11,0.25), transparent)",
-                "--rot": `${angle}deg`,
                 transformOrigin: "center",
-                animation: exiting ? "none" : `lineFlow ${1.6 + (i % 5) * 0.35}s linear ${-(i * 0.33)}s infinite`,
-                // مرحلة التجمع: تنهار نحو المركز وتختفي
-                transition: `transform ${exitMs * 0.6}ms cubic-bezier(0.6,0,0.9,0.4) ${i * 25}ms, opacity ${exitMs * 0.5}ms ease ${i * 25}ms`,
-                ...(exiting
+              }}
+              animate={
+                exiting
                   ? {
-                      transform: "rotate(var(--rot)) translateX(0px) scaleX(0)",
+                      transform: `rotate(${angle}deg) translateX(0px) scaleX(0)`,
                       opacity: 0,
                     }
-                  : {}),
-              }}
+                  : {
+                      transform: [`rotate(${angle}deg) translateX(120vw) scaleX(0.3)`, `rotate(${angle}deg) translateX(0px) scaleX(1)`],
+                      opacity: [0, 1, 1, 0],
+                    }
+              }
+              transition={
+                exiting
+                  ? {
+                      duration: (exitMs * 0.6) / 1000,
+                      delay: i * 0.025,
+                      ease: [0.6, 0, 0.9, 0.4],
+                    }
+                  : {
+                      transform: {
+                        duration: 1.6 + (i % 5) * 0.35,
+                        repeat: Infinity,
+                        delay: -(i * 0.33),
+                        ease: "linear",
+                      },
+                      opacity: {
+                        duration: 1.6 + (i % 5) * 0.35,
+                        repeat: Infinity,
+                        delay: -(i * 0.33),
+                        ease: "linear",
+                        times: [0, 0.12, 0.75, 1],
+                      },
+                    }
+              }
             />
           );
         })}
       </Box>
-
-      {/* اللوغو والنص — يتكبّران عند الختام */}
-      <Box
-        sx={{
+      <motion.div
+        style={{
           position: "relative",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          gap: 2,
-          // 🔼 اللوغو يكبر ويختفي بدل ما يصغر
-          transform: exiting ? "scale(2.2)" : "scale(1)",
-          opacity: exiting ? 0 : 1,
-          transition: `transform ${exitMs}ms cubic-bezier(0.5, 0, 0.8, 0.4), opacity ${exitMs * 0.75}ms ease`,
+          gap: 16,
         }}
+        animate={exiting ? { scale: 2.2, opacity: 0 } : { scale: 1, opacity: 1 }}
+        transition={
+          exiting
+            ? {
+                duration: exitMs / 1000,
+                ease: [0.5, 0, 0.8, 0.4],
+              }
+            : { duration: 0 }
+        }
       >
-        <Box
-          component="img"
+        <motion.img
           src={logoSrc}
           alt={brandName}
-          sx={{
-            width: 110,
-            height: 110,
+          style={{
+            width: 210,
+            height: 210,
             objectFit: "contain",
-            borderRadius: "24px",
-            background: "rgba(255,255,255,0.04)",
-            border: "1px solid rgba(245,158,11,0.25)",
-            animation: "logoPulse 2.4s ease-in-out infinite",
+            borderRadius: 24,
+            // background: "rgba(255,255,255,0.04)",
+            // border: "1px solid rgba(245,158,11,0.25)",
+          }}
+          animate={{
+            boxShadow: ["0 0 35px rgba(245,158,11,0.3)", "0 0 70px rgba(245,158,11,0.55)", "0 0 35px rgba(245,158,11,0.3)"],
+            filter: ["drop-shadow(0 0 12px rgba(245,158,11,0.35))", "drop-shadow(0 0 22px rgba(245,158,11,0.6))", "drop-shadow(0 0 12px rgba(245,158,11,0.35))"],
+          }}
+          transition={{
+            duration: 2.4,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
         />
+
         <Typography
           sx={{
             color: "#f59e0b",
@@ -139,6 +157,7 @@ export default function SplashLoader({ logoSrc = logo, brandName = "TPS STATIONS
         >
           {brandName}
         </Typography>
+
         <Typography
           sx={{
             color: "rgba(200,215,255,0.45)",
@@ -148,7 +167,7 @@ export default function SplashLoader({ logoSrc = logo, brandName = "TPS STATIONS
         >
           {tagline}
         </Typography>
-      </Box>
-    </Box>
+      </motion.div>
+    </motion.div>
   );
 }

@@ -21,6 +21,7 @@ export default function AboutUs() {
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
           top: { xs: "750px", md: "300px" },
+         
           display: "flex",
           alignItems: "center",
           justifyContent: "center",

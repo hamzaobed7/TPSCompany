@@ -45,7 +45,7 @@ const features = [
 
 export default function WhyChooseUs() {
   return (
-    <Box sx={{ width: {xs:"80%",md:"90%"}, maxWidth: {xs:"350px",md:"1300px"}, position: "relative", top: { md: "350px", xs: "780px" }, left: { md: "20%" }, padding: "30px" }}>
+    <Box sx={{ width: { xs: "80%", md: "90%" }, maxWidth: { xs: "350px", md: "1300px" }, position: "relative", top: { md: "350px", xs: "780px" }, left: { md: "20%", xs: "13px" }, padding: "30px" }}>
       <Typography
         variant="h3"
         sx={{

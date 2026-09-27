@@ -1,4 +1,3 @@
-// src/App.jsx
 
 import { useState } from "react";
 import ScrollTop from "./components/ScrollTop";
@@ -12,11 +11,13 @@ function App() {
       {!splashDone && <SplashLoader onFinish={() => setSplashDone(true)} />}
       {splashDone && (
         <>
+         {" "}
           <HomePage />
           <ScrollTop />
         </>
       )}
     </>
+    // <SplashLoader  />
   );
 }
 
