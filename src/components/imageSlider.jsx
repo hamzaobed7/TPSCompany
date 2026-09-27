@@ -43,7 +43,7 @@ export default function ImageSlider() {
         dir="rtl"
         sx={{
           width: "70%",
-          height: "70vh",
+          height: "90vh",
           margin: "10px auto",
           position: "relative",
           overflow: "hidden",
@@ -116,23 +116,21 @@ export default function ImageSlider() {
                 {slides[activeStep].tag}
               </Typography>
             </Box>
-            <AnimatePresence mode="wait">
-              <motion.div key={activeStep} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5, ease: "easeOut" }}>
-                <Typography
-                  sx={{
-                    color: "var(--color-fuel-amber, #f59e0b)",
-                    fontWeight: 900,
-                    fontSize: { xs: "1.9rem", sm: "2.6rem", md: "4.4rem" },
-                    lineHeight: 1.55,
-                    maxWidth: 560,
-                    textWrap: "wrap",
-                    wordBreak: "break-word",
-                  }}
-                >
-                  {slides[activeStep].title}
-                </Typography>
-              </motion.div>
-            </AnimatePresence>
+            <motion.div key={activeStep} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.5, ease: "easeOut" }}>
+              <Typography
+                sx={{
+                  color: "var(--color-fuel-amber, #f59e0b)",
+                  fontWeight: 900,
+                  fontSize: { xs: "1.9rem", sm: "2.6rem", md: "4.4rem" },
+                  lineHeight: 1.55,
+                  maxWidth: 560,
+                  textWrap: "wrap",
+                  wordBreak: "break-word",
+                }}
+              >
+                {slides[activeStep].title}
+              </Typography>
+            </motion.div>
 
             <Typography
               sx={{
@@ -271,7 +269,7 @@ export default function ImageSlider() {
                   sx={{
                     width: "100%",
                     height: { xs: 340, sm: 640, md: 560 },
-                    objectFit: "cover",
+                    objectFit: "fill",
                     objectPosition: "center",
                     display: "block",
                     borderRadius: "999px 999px 12px 12px",

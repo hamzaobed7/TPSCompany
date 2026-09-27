@@ -24,7 +24,7 @@ export default function HomePage() {
         <OurServices />
         <AboutUs />
         <WhyChooseUs />
-        <ContactUs />
+        {/* <ContactUs /> */}
         <Footer />
       </Stack>
     </>
