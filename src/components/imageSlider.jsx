@@ -43,7 +43,7 @@ export default function ImageSlider() {
         dir="rtl"
         sx={{
           width: "70%",
-          height: "90vh",
+          // height: {xs:"100vw"},
           margin: "10px auto",
           position: "relative",
           overflow: "hidden",
@@ -304,7 +304,7 @@ export default function ImageSlider() {
                 position: "absolute",
                 top: 500,
                 width: "100%",
-                left: 150,
+                // left: 150,
                 height: "40px",
                 py: 1,
                 px: 2,
@@ -313,7 +313,7 @@ export default function ImageSlider() {
               <Typography
                 sx={{
                   color: "rgba(255,255,255,0.85)",
-                  fontSize: { xs: "0.75rem", md: "1.35rem" },
+                  fontSize: { xs: "0.75rem", md: "1.5rem" },
                   textAlign: "center",
                 }}
               >

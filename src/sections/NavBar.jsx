@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -25,20 +25,6 @@ const navItems = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
@@ -124,20 +110,19 @@ export default function Navbar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position="fixed"
-        elevation={scrolled ? 8 : 0}
+        elevation={8}
         sx={{
-        
           backgroundColor: "var(--color-petroleum-deep)",
           transition: "all 0.3s ease-in-out",
           height: "80px",
           width: { xs: "95%", md: "60%" },
           position: "fixed",
-          margin:'10px',
-          left:{md:"20%",},
+          margin: "10px",
+          left: { md: "20%" },
           borderRadius: "10px",
         }}
       >
-        <Container maxWidth="xl" >
+        <Container maxWidth="xl">
           <Toolbar disableGutters sx={{ justifyContent: "space-between", py: 1, alignItems: "center" }}>
             <Box
               component="a"
