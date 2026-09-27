@@ -38,7 +38,7 @@ export default function ContactUs() {
         boxSizing: "border-box",
         position: "relative",
         top: {xs:"900px",md:"340px"},
-        left:{xs:"40px",md:"340px"} ,
+        left:{xs:"0px",md:"340px"} ,
         clear: "both",
       }}
     >
@@ -261,7 +261,6 @@ export default function ContactUs() {
             </Stack>
           </Grid>
 
-          {/* العمود الثاني: فورم المراسلة */}
           <Grid item xs={12} md={7}>
             <Box
               component="form"
@@ -338,7 +337,7 @@ const customTextFieldStyle = {
   },
   "& .MuiOutlinedInput-root": {
     color: "#ffffff",
-    width:{xs:"300px",md:"900px"},
+    width:{xs:"100%",md:"900px"},
     backgroundColor: "rgba(11, 15, 25, 0.6)",
     borderRadius: "10px",
     "& fieldset": {
